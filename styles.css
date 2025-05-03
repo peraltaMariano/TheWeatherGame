@@ -1,0 +1,285 @@
+/* ==================== RESET ==================== */
+body {
+  margin: 0;
+  padding: 0;
+}
+/* ==================== HEADER ==================== */
+.site-header {
+  width: 100%;
+  height: 60px;
+  background-color: #efefef;
+  border-bottom: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centering for now */
+}
+
+.header-inner {
+  width: 100%;
+  max-width: 1200px; /* 🔥 Limit header content width safely */
+  padding: 0 20px;    /* 🔥 Padding on sides */
+  display: flex;
+  justify-content: flex-end; /* Align the button to the right */
+  align-items: center;
+}
+
+.how-to-play-button {
+  background: none;
+  border: 2px solid black;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+
+.how-to-play-button:hover {
+  background: black;
+  color: white;
+}
+/* ==================== LOCATION (City + Country) ==================== */
+.location {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.city-wrapper {
+  width: 600px;
+  height: 140px; /* 🔥 fixed height box */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+}
+
+#city-name {
+  font-family: 'Digitalt', monospace;
+  font-size: 120px;
+  margin: 0;
+  line-height: 0.8;
+  word-break: break-word;
+  white-space: normal;
+  max-width: 40vw;
+}
+
+
+
+#country-name {
+  font-family: 'Digitalt', monospace;
+  font-size: 50px;
+ margin: 10px 0 0 0; 
+}
+@keyframes pop {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+#city-name.pop {
+  animation: pop 0.4s ease;
+}
+/* ==================== GUESS AREA ==================== */
+.guess-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.guess-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px
+}
+.guess-number-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 245px; /* or 20vw */
+  height: 200px; /* optional, keep square */
+  overflow: hidden;
+}
+.arrow {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.arrow:active{
+  transform: scale(0.95);
+}
+
+.arrow svg {
+  width: 80px;  /* 🔥 Make arrows larger, matching number height */
+  height: 80px;
+}
+
+.guess-number {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 900;
+  font-size: 190px;
+  margin: 0;
+  color: black;
+  display: inline-block;
+  text-align: center;
+}
+
+/* ==================== CONFIRM BUTTON ==================== */
+.confirm-button {
+  margin-top: -40px; /* 🔥 Now Confirm button is directly under number */
+  background: none;
+  border: none;
+  color: #57c4e5;
+  font-family: 'Digitalt', monospace;
+  font-size: 100px;
+  text-shadow: 4px 4px 0 #000000;
+  cursor: pointer;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+  line-height: 1;
+}
+
+.confirm-button:hover {
+  text-shadow: 4px 4px 0 #000000, 0 0 10px #57c4e5;
+}
+
+.confirm-button:active {
+  transform: scale(0.95);
+  text-shadow: 2px 2px 0 #000000, 0 0 10px #57c4e5;
+}
+/* ==================== THEMES (Light / Dark) ==================== */
+/* ==================== GUESS POPUP ==================== */
+/* Popup base */
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8); /* 🔥 Start smaller */
+  background: #efefef;
+  border: 3px solid black;
+  border-radius: 15px;
+  padding: 20px 30px;
+  width: 350px;
+  height: 320px;
+  text-align: center;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease; /* 🔥 animate scale too */
+}
+
+.popup.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1); /* 🔥 Full size */
+}
+
+
+/* Popup contents */
+.popup-content {
+  position: relative;
+}
+
+/* Close button */
+.close-button {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Points */
+#points-earned {
+  font-family:poppins, sans-serif;
+  font-size: 115px;
+  font-weight: 700;
+  color: black;
+  
+  
+}
+
+/* Message */
+#result-message {
+  font-family:poppins, sans-serif;
+  font-size: 47px;
+  font-weight: bold;
+  color: black;
+}
+
+/* Actual Temperature */
+#actual-temperature {
+  font-family:poppins, sans-serif;
+  font-weight: semi-bold;
+  font-size: 32.5px;
+  margin-top: 2px;
+  color: black;
+}
+
+/* Continue button */
+#continue-button {
+  margin-top: 15px;
+  background: none;
+  color: #1dd3b0;
+  font-size: 24px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  text-shadow: 2px 2px 0 black;
+  transition: transform 0.2s ease;
+}
+
+#continue-button:active {
+  transform: scale(0.95);
+  text-shadow: 1px 1px 0 black;
+  
+}
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* 🔥 semi-transparent black */
+  z-index: 999; /* 🔥 behind popup (popup is 1000) */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.backdrop.show {
+  opacity: 1;
+  pointer-events: auto;
+}

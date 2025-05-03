@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Guess Game</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Digitalt&family=Poppins:wght@300;400;600;900&display=swap" rel="stylesheet">
+</head>
+<div id="popup-backdrop" class="backdrop hidden"></div>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <button class="how-to-play-button">?</button>
+    </div>
+  </header>
+  
+  <div class="location">
+    <div class="city-wrapper">
+      <h1 id="city-name"></h1>
+    </div>
+    
+    <h2 id="country-name">Argentina</h2>
+  </div>
+
+  <div class="guess-box">
+    <div class="guess-row">
+      <button class="arrow" id="decrease">
+        <svg viewBox="0 0 100 100" width="100" height="100">
+          <polygon points="80,10 20,50 80,90" fill="black" />
+        </svg>
+      </button>
+      <div class="guess-number-wrapper">
+        <span class="guess-number" id="guess-number">24</span>
+      </div>
+      <button class="arrow" id="increase">
+        <svg viewBox="0 0 100 100" width="100" height="100">
+          <polygon points="20,10 80,50 20,90" fill="black" />
+        </svg>
+      </button>
+    </div>
+    <div id="result-popup" class="popup hidden">
+      <div class="popup-content">
+        <button class="close-button" id="close-popup">✖</button>
+        <div class="points" id="points-earned">+18</div>
+        <div class="message" id="result-message">So Close!</div>
+        <div class="actual-temp" id="actual-temperature">Actual Temp: 21°C</div>
+        <button class="continue-button" id="continue-button">CONTINUE</button>
+      </div>
+    </div>
+    <button class="confirm-button" id="confirm-button">CONFIRM</button>
+  </div>
+  <script type="module" src="js/main.js"></script>
+</body>
+
