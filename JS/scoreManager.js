@@ -1,23 +1,70 @@
-// scoreManager.js
 
-export function calculatePointsAndMessage(guessedTemp, actualTemp) {
-  const difference = Math.abs(guessedTemp - actualTemp);
+  let perfectGuesses = 0;
+  let guessCount = 0;
+  let history = [];
 
-  if (difference === 0) {
-    return { points: 20, message: "PERFECT!" };
-  } else if (difference === 1) {
-    return { points: 18, message: "So Close!" };
-  } else if (difference === 2) {
-    return { points: 16, message: "So Close!" };
-  } else if (difference === 3) {
-    return { points: 13, message: "Nice try!" };
-  } else if (difference === 4) {
-    return { points: 10, message: "Nice try!" };
-  } else if (difference >= 5 && difference <= 7) {
-    return { points: 6, message: "Not too bad" };
-  } else if (difference >= 8 && difference <= 10) {
-    return { points: 3, message: "Difficult one" };
+export function compareGuess(userInput, apiValue, currentHP, bonus, city) {
+  const diff = Math.abs(apiValue - userInput);
+  let updatedHP;
+  let isPerfect = false;
+  let lost = false;
+
+  guessCount++;
+
+  if (diff === 0) {
+    updatedHP = currentHP + bonus;
+    isPerfect = true;
+    perfectGuesses++;
+    document.getElementById('feedback-message').textContent = "Correct!";
+    document.getElementById('actual-temp').textContent = `The temperature was indeed ${apiValue}°C.`;
   } else {
-    return { points: 0, message: "Uh oh..." };
+    updatedHP = currentHP - diff;
+    if (updatedHP <= 0) {
+      updatedHP = 0;
+      lost = true;
+    }
+
+    if (diff <= 2) {
+      document.getElementById('feedback-message').textContent = "So close!";
+    } else if (diff <= 5) {
+      document.getElementById('feedback-message').textContent = "Almost.";
+    } else if (diff <= 9) {
+      document.getElementById('feedback-message').textContent = "Fair guess.";
+    } else {
+      document.getElementById('feedback-message').textContent = "Uh-oh.";
+    }
+
+    document.getElementById('actual-temp').textContent = `The actual temperature was ${apiValue}°C.`;
   }
+
+  history.push({
+    index: guessCount,
+    city: city,
+    actual: apiValue,
+    guessed: userInput
+  });
+
+  document.getElementById('current-hp').textContent = updatedHP;
+  document.getElementById('perfect-guesses').textContent = perfectGuesses;
+  document.getElementById('guess-count').textContent = guessCount;
+
+  return { updatedHP, lost, isPerfect };
+}
+
+
+
+export function resetScore(){
+  guessCount = 0;
+  perfectGuesses = 0;
+  history = [];
+}
+export function getGuessCount() {
+  return guessCount;
+}
+export function getPerfectGuesses() {
+  return perfectGuesses;
+}
+
+export function getHistory() {
+  return history;
 }

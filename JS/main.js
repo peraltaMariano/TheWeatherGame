@@ -1,9 +1,7 @@
-import { setupInputHandlers } from './input.js';
-import { startNewRound } from './gameManager.js';
-import { adjustCityFontSize }from './ui.js';
+import { initializeGame } from './gameManager.js';
+import { showHowToPlay } from './ui.js';
+initializeGame();
+document.addEventListener('DOMContentLoaded', () => {
+  showHowToPlay();
+});
 
-setupInputHandlers();
-startNewRound();
-adjustCityFontSize();
-// document.getElementById('theme-toggle-button').addEventListener('click', () => {
-//     document.body.classList.toggle('dark');

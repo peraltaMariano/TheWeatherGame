@@ -2,284 +2,831 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: white;
+  font-family: poppins, sans-serif;
+  overflow-x: hidden;
+  height: 100%;
+}
+:root {
+  --primary-color: #218c74; /* Primary color for the game */
+  --secondary-color: #34ace0; /* Secondary color for chips */
+  --text-color: black; /* Default text color */
+  --tooltip-bg: black; /* Tooltip background color */
+  --tooltip-text-color: white; /* Tooltip text color */
+  --default-border-radius: 14px; /* Default border radius for elements */
+  --default-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.40); /* Default box shadow */
 }
 /* ==================== HEADER ==================== */
 .site-header {
-  width: 100%;
-  height: 60px;
-  background-color: #efefef;
-  border-bottom: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Centering for now */
+  position: relative;
+  height: 50px;
+  /* background-color: var(--primary-color); */
 }
 
 .header-inner {
-  width: 100%;
-  max-width: 1200px; /* 🔥 Limit header content width safely */
-  padding: 0 20px;    /* 🔥 Padding on sides */
-  display: flex;
-  justify-content: flex-end; /* Align the button to the right */
-  align-items: center;
+  height: 100%;
+  position: relative; /* so we can position children inside */
 }
 
-.how-to-play-button {
-  background: none;
-  border: 2px solid black;
-  border-radius: 50%;
-  font-size: 24px;
-  font-weight: bold;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s, color 0.2s;
-}
-
-.how-to-play-button:hover {
-  background: black;
-  color: white;
-}
-/* ==================== LOCATION (City + Country) ==================== */
-.location {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.city-wrapper {
-  width: 600px;
-  height: 140px; /* 🔥 fixed height box */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  text-align: center;
-}
-
-#city-name {
-  font-family: 'Digitalt', monospace;
-  font-size: 120px;
-  margin: 0;
-  line-height: 0.8;
-  word-break: break-word;
-  white-space: normal;
-  max-width: 40vw;
-}
-
-
-
-#country-name {
-  font-family: 'Digitalt', monospace;
-  font-size: 50px;
- margin: 10px 0 0 0; 
-}
-@keyframes pop {
-  0% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-#city-name.pop {
-  animation: pop 0.4s ease;
-}
-/* ==================== GUESS AREA ==================== */
-.guess-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 60px;
-}
-
-.guess-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 25px
-}
-.guess-number-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 245px; /* or 20vw */
-  height: 200px; /* optional, keep square */
-  overflow: hidden;
-}
-.arrow {
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.arrow:active{
-  transform: scale(0.95);
-}
-
-.arrow svg {
-  width: 80px;  /* 🔥 Make arrows larger, matching number height */
-  height: 80px;
-}
-
-.guess-number {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 900;
-  font-size: 190px;
-  margin: 0;
-  color: black;
-  display: inline-block;
-  text-align: center;
-}
-
-/* ==================== CONFIRM BUTTON ==================== */
-.confirm-button {
-  margin-top: -40px; /* 🔥 Now Confirm button is directly under number */
-  background: none;
-  border: none;
-  color: #57c4e5;
-  font-family: 'Digitalt', monospace;
-  font-size: 100px;
-  text-shadow: 4px 4px 0 #000000;
-  cursor: pointer;
-  transition: transform 0.3s ease, text-shadow 0.3s ease;
-  line-height: 1;
-}
-
-.confirm-button:hover {
-  text-shadow: 4px 4px 0 #000000, 0 0 10px #57c4e5;
-}
-
-.confirm-button:active {
-  transform: scale(0.95);
-  text-shadow: 2px 2px 0 #000000, 0 0 10px #57c4e5;
-}
-/* ==================== THEMES (Light / Dark) ==================== */
-/* ==================== GUESS POPUP ==================== */
-/* Popup base */
-.popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.8); /* 🔥 Start smaller */
-  background: #efefef;
-  border: 3px solid black;
-  border-radius: 15px;
-  padding: 20px 30px;
-  width: 350px;
-  height: 320px;
-  text-align: center;
-  z-index: 1000;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease, transform 0.4s ease; /* 🔥 animate scale too */
-}
-
-.popup.show {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, -50%) scale(1); /* 🔥 Full size */
-}
-
-
-/* Popup contents */
-.popup-content {
-  position: relative;
-}
-
-/* Close button */
-.close-button {
+.game-title {
   position: absolute;
-  top: -15px;
-  right: -15px;
-  background-color: red;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  font-weight: bold;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-/* Points */
-#points-earned {
-  font-family:poppins, sans-serif;
-  font-size: 115px;
-  font-weight: 700;
-  color: black;
-  
-  
-}
-
-/* Message */
-#result-message {
-  font-family:poppins, sans-serif;
-  font-size: 47px;
-  font-weight: bold;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); 
+  font-size: 20px;
+  font-weight: 500;
   color: black;
 }
-
-/* Actual Temperature */
-#actual-temperature {
-  font-family:poppins, sans-serif;
-  font-weight: semi-bold;
-  font-size: 32.5px;
-  margin-top: 2px;
-  color: black;
-}
-
-/* Continue button */
-#continue-button {
-  margin-top: 15px;
+.how-to-play-button {
+  position: absolute;
+  right: 200px;
+  top: 50%;
+  transform: translateY(-50%);
   background: none;
-  color: #1dd3b0;
-  font-size: 24px;
-  font-weight: bold;
   border: none;
   cursor: pointer;
-  text-shadow: 2px 2px 0 black;
-  transition: transform 0.2s ease;
+  padding: 5px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-#continue-button:active {
-  transform: scale(0.95);
-  text-shadow: 1px 1px 0 black;
-  
+.how-to-play-button .material-symbols-outlined {
+  font-size: 40px;
+  color: black;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
-.backdrop {
+
+.how-to-play-button:hover .material-symbols-outlined {
+  color: var(--primary-color);
+}
+
+.tooltip-text {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  visibility: hidden;
+  width: 100px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  padding: 5px 0;
+  position: absolute;
+  top: 100%; /* 🔥 adjusted slightly */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 9999; /* 🔥 very high to be safe */
+}
+
+/* On hover: show tooltip */
+.how-to-play-button:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+
+}
+.how-to-modal {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5); /* 🔥 semi-transparent black */
-  z-index: 999; /* 🔥 behind popup (popup is 1000) */
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.backdrop.show {
-  opacity: 1;
-  pointer-events: auto;
+.how-to-modal.hidden {
+  display: none;
 }
+
+.how-to-modal-content {
+  background: #f9f5ef;
+  padding: 24px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-family: 'Poppins', sans-serif;
+  color: #000;
+  position: relative;
+}
+
+.how-to-title {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.how-to-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: red;
+  cursor: pointer;
+}
+
+
+.main-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ✅ center horizontally */
+  justify-content: center; /* ✅ center vertically */
+
+}
+
+/* ==================== LOCATION (City + Country) ==================== */
+
+.location-container {
+  width: 40%;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* ✅ center horizontally */
+  justify-content: flex-start; /* ✅ stack from top */
+  box-sizing: border-box;
+  margin:auto;
+  padding-top: 10px;
+}
+.city-wrapper {
+  width: 40vw;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+}
+
+.city-name {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  text-align: center;
+  max-width: 30vw;
+  max-height: 100%;
+  
+  font-size: 60px;
+  line-height: 1;
+  white-space: normal;
+  word-break: break-word;
+  
+  text-wrap: pretty;
+}
+
+
+
+.clue-row-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center; /* keeps the clue-row centered */
+  align-items: center;
+  width: 100%; /* full width of screen */
+  margin-bottom: 20px; /* optional spacing */
+}
+
+
+.clue-row {
+  display: flex;
+  gap: 10px;
+}
+.clue-box {
+  width: 106px;
+  height: 98px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  
+}
+
+.clue-title {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 3px; /* small space between title and outer box */
+}
+
+.clue-box-body {
+  width: 105px;
+  height: 80px;
+  background-color: white;
+  border-radius: var(--default-border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.40);
+}
+
+.flag-icon {
+  max-width: 65px;
+  max-height: 32px;
+  object-fit: contain;
+  border: 1px solid black; /* optional border */
+}
+.weather-icon {
+  width: 46px; /* adjust as needed */
+  height: auto;
+  object-fit: contain;
+}
+.season-icon {
+  width: 36px; /* adjust as needed */
+  height: auto;
+  object-fit: contain;
+}
+.time-icon{
+  font-size: 24px;
+}
+
+.divider-mobile{
+  display: none;
+}
+/* ==================== STATS AREA ==================== */
+.chips-container {
+  width: 236px;;
+  height: 65px;
+  display: flex;
+  justify-content: space-between; /* chips attached to each side */
+  align-items: center; /* vertical centering */
+  box-sizing: border-box;
+  margin-top: 70px;
+  margin-bottom: 30px;
+}
+
+.chip {
+  /* background-color: #34ace0; */
+  border-radius: var(--default-border-radius);
+  width: 90.4px;
+  height: 63px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  /* border: 1px solid black; */
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.40);
+}
+
+.chip-inner-box {
+  background-color: white;
+  /* border: 1px solid black; */
+  width: 70px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: var(--default-border-radius);
+}
+
+.chip-icon {
+  width: 18px; /* adjust as needed */
+  height: auto;
+  margin-right: 5px; /* spacing between icon and number */
+}
+
+.chip-value {
+  font-size: 18px; /* adjust as needed */
+  font-weight: 400;
+  color: black;
+}
+
+/* ==================== GUESS AREA ==================== */
+.guess-section-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 250px; /* Adjust based on your existing input */
+  height: 100px; /* Adjust based on your content */
+  margin: 0 auto;
+  
+}
+.guess-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.guess-input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: var(--default-border-radius);
+  overflow: hidden;
+}
+
+.guess-input {
+  width: 130px; /* adjust as needed */
+  height: 50px;
+  border: none;
+  outline: none;
+  padding: 0 10px;
+  font-size: 22px;
+  border-top-left-radius: var(--default-border-radius);
+  border-bottom-left-radius: var(--default-border-radius);
+  text-align: center;
+  font-family: Poppins, sans-serif;
+}
+
+.guess-submit {
+  background-color: var(--primary-color);
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  height: 50px;
+  width: 60px;
+  border: none;
+  border-left: 1px solid black;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.guess-submit:hover {
+  background-color: #34d3b0;
+}
+
+.guess-instructions {
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 400;
+  font-family: 'Poppins', sans-serif;
+  color: black;
+  text-align: center;
+}
+
+
+
+.guess-feedback-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.feedback-message {
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 4px;
+}
+
+.actual-temp {
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.next-button {
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
+  font-size: 24px; /* Base size defines container space */
+  text-align: left;
+  cursor: pointer;
+  color: var(--primary-color);
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  display: inline-block;
+  width: fit-content; /* Keep button sizing based on base font size */
+}
+
+.next-text {
+  display: inline-block;
+  transition: font-size 0.15s ease;
+  font-size: 22px;
+}
+
+.next-button:hover .next-text {
+  font-size: 24px;
+}
+.guess-slider {
+  display: flex;
+  width: 300%;
+  transition: transform 0.5s ease;
+  
+}
+
+.guess-slide {
+  width: 33.33%; /* 100% / 3 slides */
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+/* ==================== THEMES (Light / Dark) ==================== */
+/* ==================== Game Over Screen ==================== */
+.lose-screen-container {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: 1000;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.lose-screen-container.visible {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto; /* Enable interaction when visible */
+}
+.lose-screen-content {
+  width: 30%;
+  max-width: 400px;
+  min-width: 280px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  text-align: left;
+  padding: 20px;
+  box-sizing: border-box;
+  margin-top: 50px; /* Space from top to avoid header overlap */
+}
+
+.lose-screen-title {
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.game-statistics {
+  width: max-content;
+  text-align: left;
+  margin-bottom: 30px;
+  box-shadow: var(--default-box-shadow);
+  border-radius: var(--default-border-radius);
+  padding: 10px;
+}
+
+.statistics-title {
+  font-weight: 600;
+  text-align: left;
+  font-size: 18px;
+  width: 100%;
+  width: 100%;
+  
+
+}
+
+.history {
+  width: 100%;
+  padding: 10px;
+  align-items: left;
+}
+
+.history-title {
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 10px;
+  font-size: 18px;
+  padding-left: 3px;
+}
+
+.history-table {
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  box-shadow: var(--default-box-shadow);
+  border-radius: var(--default-border-radius);
+  margin-left: -10px;
+}
+
+.history-header {
+  display: grid;
+  grid-template-columns: 30px 1fr 60px 60px;
+  font-weight: 600;
+  background-color: #227093;
+  padding-right: 19px;
+  color: white;
+  padding-left: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+  border-radius: var(--default-border-radius) var(--default-border-radius) 0 0; 
+  height: 30px;
+  align-items: center;
+}
+
+#history-list {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(5 * 40px);
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  border-radius: 0 0 var(--default-border-radius) var(--default-border-radius); 
+}
+#history-list::-webkit-scrollbar {
+  width: 6px; 
+}
+
+#history-list::-webkit-scrollbar-thumb {
+  background-color: #aaa; 
+  border-radius: 3px;
+}
+
+#history-list::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+.history-row {
+  display: grid;
+  grid-template-columns: 30px 1fr 60px 60px;
+  padding: 8px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: start; 
+  word-break: break-word; 
+}
+
+
+
+.button-row {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-top: 20px;
+  font-size: 24px;
+}
+#share-button {
+  color: #227093;
+}
+.lose-screen-title,
+.game-statistics,
+.history,
+.button-row {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 1s ease, transform 1.4s ease;
+}
+
+/* Triggered */
+.lose-screen-title.visible,
+.game-statistics.visible,
+.history.visible,
+.button-row.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==================== ADS ==================== */
+/* Horizontal layout: ads on sides */
+/* Fixed Side Ads */
+.ad-banner.ad-left,
+.ad-banner.ad-right {
+  position: fixed;
+  top: 80px; /* adjust if you have a header */
+  width: 160px;
+  z-index: 999;
+}
+
+.ad-banner.ad-left {
+  left: 0;
+}
+
+.ad-banner.ad-right {
+  right: 0;
+}
+
+/* Make sure images scale */
+.ad-banner img {
+  width: 100%;
+  height: auto;
+}
+
+/* Page wrapper to avoid content touching the ads */
+.page-wrapper {
+  margin: 0 180px; /* leaves space for 160px ads + buffer */
+}
+
+/* Main content stays centered */
+.main-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+.ad-banner.ad-bottom {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #000;
+  text-align: center;
+  z-index: 999;
+}
+  
+@media (max-width: 768px) {
+  .site-header {
+    background-color: transparent; /* remove green */
+    height: 50px; /* keep the space */
+  }
+  html, body {
+    height: 100%;
+    overflow-x: hidden; /* prevent horizontal scroll */
+  }
+  .game-title {
+    display: none; /* hide title on mobile */
+  }
+  .how-to-play-button{
+    right: 20px;
+  }
+  .how-to-play-button:hover .tooltip-text {
+  visibility: hidden;
+  opacity: 1;
+
+}
+  .location-container {
+    width: 90%;
+    padding: 0;
+    height: auto;
+    margin: 0;
+  }
+
+.city-wrapper {
+  width: 80vw;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+}
+
+.city-name {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  text-align: center;
+  max-width: 100%;
+  height: auto;
+  font-size: clamp(40px, 6vw, 60px); /* ✅ Responsive font size */
+  line-height: 1;
+  white-space: normal;
+  word-break: break-word;
+}
+.lose-screen-content{
+  margin-top: 20px;
+  width: 90%;
+}
+.lose-screen-title {
+  font-size: 40px; /* smaller title for mobile */
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.clue-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.clue-box {
+  flex: 1 1 22%;
+  max-width: 85px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.clue-title {
+  font-size: 11px;
+  margin-bottom: 2px; /* smaller space for mobile */
+}
+.flag-icon,
+.condition-icon,
+.season-icon {
+  max-width: 32px;
+  max-height: 28px;
+}
+
+.time-icon {
+  font-size: 24px;
+}
+.clue-box-body {
+  width: 100%;
+  height: 65px;
+}
+.divider-mobile {
+  width: 90%;
+  height: 1px;
+  background-color: black;
+  margin: 20px auto; /* space above and below */
+  display: block;
+}
+.chips-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  margin-top: 0px;
+}
+.chip {
+  width: 80px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.40);
+  border-radius: var(--default-border-radius);
+}
+
+.chip-inner-box {
+  width: 65px;
+  height: 44px;
+  border-radius: var(--default-border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+
+.chip-icon {
+  width: 16px;
+  height: auto;
+  margin-right: 4px;
+}
+
+.guess-box {
+  width: clamp(260px, 80vw, 320px); /* ✅ Adjusts from 260px up to 320px */
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  border-radius: var(--default-border-radius);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+}
+
+  .guess-controls-row {
+    width: 100%;
+    max-width: 250px;
+    gap: 10px;
+  }
+
+  .guess-number {
+    font-size: 72px;
+  }
+
+  .confirm-button {
+    width: 80%;
+    height: 50px;
+    font-size: 20px;
+    margin-top: 12px;
+  }
+
+  .confirm-label {
+    font-size: 12px;
+    text-align: center;
+  }
+  
+  .ad-banner.ad-left,
+  .ad-banner.ad-right {
+    display: none;
+  }
+
+  .ad-banner.ad-bottom {
+    display: block;
+  }
+
+  .page-wrapper {
+    margin: 0; /* no margin needed without side ads */
+  }
+
+  .main-content {
+    padding-bottom: 100px; /* leave space for bottom ad */
+  }
+}
+
+
+
+
+
+
+
+

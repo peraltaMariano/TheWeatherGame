@@ -5,7 +5,7 @@ const MAX_ID = 973187;
 
 const mockData = {
   location: {
-    name: "San",
+    name: "Cordoba Cordoba Cordoba",
     country: "Argentina",
     localtime: "2025-04-30 14:00"
   },
@@ -51,10 +51,11 @@ function parseWeatherData(data) {
     city: data.location.name,
     country: data.location.country,
     localtime: data.location.localtime,
-    temperatureC: data.current.temp_c,
-    temperatureF: data.current.temp_f,
+    temperatureC: Math.round(data.current.temp_c),
+    temperatureF: Math.round(data.current.temp_f),
     conditionCode: data.current.condition.code,
     conditionText: data.current.condition.text,
-    isDay: data.current.is_day
+    isDay: data.current.is_day,
+    latitude: data.location.lat
   };
 }
