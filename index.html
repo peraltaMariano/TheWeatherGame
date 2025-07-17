@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8188933969870248"
-     crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -88,7 +88,7 @@
           <div class="guess-slide">
             <div class="guess-container">
               <div class="guess-input-wrapper">
-                <input type="text" class="guess-input" id="guess-input" placeholder="Type here" maxlength="3" autofocus/>
+                <input id="guess-input" type="text" inputmode="numeric" pattern="[-]?[0-9]*" autofocus />
                 <button class="guess-submit" id="guess-submit">OK</button>
               </div>
               <div class="guess-instructions">
@@ -111,7 +111,7 @@
           <div class="guess-slide">
             <div class="guess-container">
               <div class="guess-input-wrapper">
-                <input type="text" class="guess-input" id="guess-input" placeholder="Type here" maxlength="3" />
+                <input id="guess-input" type="tel" pattern="[-]?[0-9]*" autocomplete="off" inputmode="numeric" />
                 <button class="guess-submit" id="guess-submit">OK</button>
               </div>
               <div class="guess-instructions">
