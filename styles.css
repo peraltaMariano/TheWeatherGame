@@ -824,6 +824,7 @@ body {
 }
 .chips-container{
   width: 60%;
+  margin-top: 25px;
 }
 .guess-box {
   width: clamp(260px, 80vw, 320px); /* ✅ Adjusts from 260px up to 320px */
