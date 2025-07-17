@@ -819,7 +819,12 @@ body {
   height: auto;
   margin-right: 4px;
 }
-
+.chip-name{
+  text-align: center;
+}
+.chips-container{
+  width: 60%;
+}
 .guess-box {
   width: clamp(260px, 80vw, 320px); /* ✅ Adjusts from 260px up to 320px */
   padding: 16px;
