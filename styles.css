@@ -636,7 +636,13 @@ body {
   text-align: center;
   z-index: 999;
 }
-  
+input[type="tel"] {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  text-align: center;
+}
 @media (max-width: 768px) {
   .site-header {
     background-color: transparent; /* remove green */
