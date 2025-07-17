@@ -39,7 +39,7 @@
         <div class="clue-row">
           <div class="clue-box">
             <div class="clue-title">Country</div>
-            <div class="clue-box-body">
+            <div class="clue-box-body tooltip-target" id="country-clue" data-tooltip="Country">
               <img id="country-icon" src="Assets/OtherIcons/countryClue-Placeholder.png" class="flag-icon" />
             </div>
           </div>
@@ -70,6 +70,7 @@
       </div>
       <div class="chips-container">
         <div class="chip">
+          <div class="chip-name">HP</div>
           <div class="chip-inner-box">
             <img src="Assets/OtherIcons/HealthIcon.png" alt="Heart Icon" class="chip-icon" />
             <div class="chip-value" id="current-hp">100</div>
@@ -77,6 +78,7 @@
         </div>
 
         <div class="chip">
+          <div class="chip-name">Streak</div>
           <div class="chip-inner-box">
             <img src="Assets/OtherIcons/streaksIcon.png" alt="Lightning Icon" class="chip-icon" />
             <div class="chip-value" id="guess-count">12</div>
@@ -88,7 +90,12 @@
           <div class="guess-slide">
             <div class="guess-container">
               <div class="guess-input-wrapper">
-                <input id="guess-input" type="text" inputmode="numeric" pattern="[-]?[0-9]*" autofocus />
+                <div class="below-zero-wrapper">
+                  <button type="button" class="below-zero" id="below-zero">-</button>
+                </div>
+
+                <input class="guess-input" id="guess-input" type="numeric" inputmode="numeric" pattern="[-]?[0-9]*"
+                  autocomplete="off" placeholder="Your Guess" />
                 <button class="guess-submit" id="guess-submit">OK</button>
               </div>
               <div class="guess-instructions">
@@ -111,8 +118,8 @@
           <div class="guess-slide">
             <div class="guess-container">
               <div class="guess-input-wrapper">
-                <input id="guess-input" type="tel" pattern="[-]?[0-9]*" autocomplete="off" inputmode="numeric"
-                  placeholder="Enter temperature" />
+                <input class="guess-input" type="text" inputmode="decimal" pattern="[-]?[0-9]*" autocomplete="off"
+                  placeholder="Temp in °C" />
                 <button class="guess-submit" id="guess-submit">OK</button>
               </div>
               <div class="guess-instructions">
@@ -175,6 +182,7 @@
             For example: It's 20°C in New York and you guess 16°C. You will lose 4 points.<br><br>
             If you guess the correct temperature you will get 10 hp back.<br><br>
             Game ends when your hp goes down to 0.
+            Tip: You can hover (or tap) on the flag to see the country name.
           </p>
         </div>
       </div>
