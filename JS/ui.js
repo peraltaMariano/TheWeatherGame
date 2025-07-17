@@ -112,21 +112,25 @@ export function enhanceGuessInput() {
   });
 
   // Insert minus on ± click (only if not already there)
-  belowZeroButton?.addEventListener("click", (e) => {
-    e.preventDefault(); // Prevent unintended side effects
-    const value = guessInput.value;
+belowZeroButton?.addEventListener("click", (e) => {
+  e.preventDefault();
 
-    if (!value.startsWith("-")) {
-      guessInput.value = "-" + value;
-    }
+  const value = guessInput.value;
 
-    // ✅ Keep focus so keyboard stays open
-    guessInput.focus();
-    // Optionally move cursor to end (on Android)
-    setTimeout(() => {
-      guessInput.setSelectionRange(guessInput.value.length, guessInput.value.length);
-    }, 0);
-  });
+  if (value.startsWith("-")) {
+    guessInput.value = value.substring(1);
+  } else {
+    guessInput.value = "-" + value;
+  }
+
+  // Keep keyboard open
+  guessInput.focus();
+
+  // Move cursor to end (some Android devices require this)
+  setTimeout(() => {
+    guessInput.setSelectionRange(guessInput.value.length, guessInput.value.length);
+  }, 0);
+});
 }
 
 
@@ -177,10 +181,12 @@ export function showHowToPlay() {
 }
 
 export function setupCountryTooltip() {
-  const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
   const target = document.getElementById("country-clue");
-
   if (!target) return;
+
+  // Remove old tooltip if it exists
+  const old = target.querySelector(".tooltip-popup");
+  if (old) old.remove();
 
   const message = target.getAttribute("data-tooltip");
   const tooltip = document.createElement("div");
@@ -192,9 +198,12 @@ export function setupCountryTooltip() {
 
   const showTooltip = () => {
     tooltip.classList.add("active");
-    if (isMobile) {
-      hideTimeout = setTimeout(() => tooltip.classList.remove("active"), 2500);
-    }
+
+    // Always hide after 2.5s
+    if (hideTimeout) clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+      tooltip.classList.remove("active");
+    }, 1500);
   };
 
   const hideTooltip = () => {
@@ -202,22 +211,20 @@ export function setupCountryTooltip() {
     if (hideTimeout) clearTimeout(hideTimeout);
   };
 
-  if (isMobile) {
-    target.addEventListener("click", (e) => {
-      e.stopPropagation();
-      if (tooltip.classList.contains("active")) {
-        hideTooltip();
-      } else {
-        showTooltip();
-      }
-    });
+  // Mobile tap
+  target.addEventListener("click", (e) => {
+    e.stopPropagation();
+    showTooltip();
+  });
 
-    document.addEventListener("click", (e) => {
-      if (!target.contains(e.target)) hideTooltip();
-    });
-  } else {
-    target.addEventListener("mouseenter", showTooltip);
-    target.addEventListener("mouseleave", hideTooltip);
-  }
+  // Desktop hover
+  target.addEventListener("mouseenter", showTooltip);
+  target.addEventListener("mouseleave", hideTooltip);
+
+  // Click outside (optional for mobile)
+  document.addEventListener("click", (e) => {
+    if (!target.contains(e.target)) hideTooltip();
+  });
 }
+
 

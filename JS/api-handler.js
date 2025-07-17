@@ -6,7 +6,7 @@ const MAX_ID = 973187;
 const mockData = {
   location: {
     name: "Cordoba Cordoba Cordoba",
-    country: "Argentina",
+    country: "ArgentinaArgentinaArgentina",
     localtime: "2025-04-30 14:00"
   },
   current: {
