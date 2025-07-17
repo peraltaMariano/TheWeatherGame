@@ -46,6 +46,8 @@ export function updateClues(data) {
   const isoCode = countryToISO[data.country];
   if (flagIcon && isoCode) {
     flagIcon.src = `https://flagcdn.com/${isoCode}.svg`;
+    document.getElementById("country-clue")?.setAttribute("data-tooltip", `${data.country}`);
+    setupCountryTooltip();
   } else {
     console.warn(`No ISO code found for country ${data.country}`);
   }
@@ -85,30 +87,48 @@ export function adjustCityFontSize() {
 // Input enhancements
 export function enhanceGuessInput() {
   const guessInput = document.getElementById("guess-input");
+  const belowZeroButton = document.getElementById("below-zero");
 
+  // Clean input as user types
   guessInput.addEventListener("input", () => {
     let value = guessInput.value;
 
-    // Step 1: Remove all characters except digits and minus
+    // Remove all except digits and minus
     value = value.replace(/[^0-9\-]/g, "");
 
-    // Step 2: Ensure minus only at the start
+    // Keep minus only at start
     if (value.startsWith("-")) {
-      // Remove any other minus signs after the first char
       value = "-" + value.slice(1).replace(/-/g, "");
     } else {
-      // Remove all minus signs if not at start
       value = value.replace(/-/g, "");
     }
 
-    // Step 3: Limit total length to 3 characters
+    // Limit length
     if (value.length > 3) {
       value = value.slice(0, 3);
     }
 
     guessInput.value = value;
   });
+
+  // Insert minus on ± click (only if not already there)
+  belowZeroButton?.addEventListener("click", (e) => {
+    e.preventDefault(); // Prevent unintended side effects
+    const value = guessInput.value;
+
+    if (!value.startsWith("-")) {
+      guessInput.value = "-" + value;
+    }
+
+    // ✅ Keep focus so keyboard stays open
+    guessInput.focus();
+    // Optionally move cursor to end (on Android)
+    setTimeout(() => {
+      guessInput.setSelectionRange(guessInput.value.length, guessInput.value.length);
+    }, 0);
+  });
 }
+
 
 export function updateHealthPoints(points) {
   const hpElement = document.getElementById("current-hp");
@@ -156,4 +176,48 @@ export function showHowToPlay() {
   }
 }
 
+export function setupCountryTooltip() {
+  const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  const target = document.getElementById("country-clue");
+
+  if (!target) return;
+
+  const message = target.getAttribute("data-tooltip");
+  const tooltip = document.createElement("div");
+  tooltip.className = "tooltip-popup";
+  tooltip.textContent = message;
+  target.appendChild(tooltip);
+
+  let hideTimeout;
+
+  const showTooltip = () => {
+    tooltip.classList.add("active");
+    if (isMobile) {
+      hideTimeout = setTimeout(() => tooltip.classList.remove("active"), 2500);
+    }
+  };
+
+  const hideTooltip = () => {
+    tooltip.classList.remove("active");
+    if (hideTimeout) clearTimeout(hideTimeout);
+  };
+
+  if (isMobile) {
+    target.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (tooltip.classList.contains("active")) {
+        hideTooltip();
+      } else {
+        showTooltip();
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!target.contains(e.target)) hideTooltip();
+    });
+  } else {
+    target.addEventListener("mouseenter", showTooltip);
+    target.addEventListener("mouseleave", hideTooltip);
+  }
+}
 

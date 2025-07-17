@@ -291,32 +291,27 @@ body {
   margin-bottom: 30px;
 }
 
-.chip {
-  /* background-color: #34ace0; */
-  border-radius: var(--default-border-radius);
+.chip{
+  align-items: center;
+  justify-items: center;
+}
+.chip-name{
+  font-family: poppins, sans-serif;
+  font-size: 14px;
+
+  
+}
+.chip-inner-box {
+  background-color: white;
+  /* border: 1px solid black; */
   width: 90.4px;
   height: 63px;
   display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  /* border: 1px solid black; */
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.40);
-}
-.chip-name{
-  font-family: poppins, sans-serif;
-  
-}
-.chip-inner-box {
-  background-color: white;
-  /* border: 1px solid black; */
-  width: 70px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
   border-radius: var(--default-border-radius);
+  box-shadow: var(--default-box-shadow);
 }
 
 .chip-icon {
